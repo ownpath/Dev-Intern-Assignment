@@ -1,0 +1,35 @@
+{
+  "customer": {
+    "id": "customer-42",
+    "loyaltyPercent": 10
+  },
+  "items": [
+    {
+      "sku": "tea-tin",
+      "name": "Masala Tea Tin",
+      "unitPriceCents": 1200,
+      "quantity": 2
+    },
+    {
+      "sku": "filter-pack",
+      "name": "Filter Paper Pack",
+      "unitPriceCents": 300,
+      "quantity": 1
+    }
+  ],
+  "shippingCents": 499,
+  "discountCodes": [
+    {
+      "code": "WELCOME5",
+      "type": "fixed",
+      "amountCents": 500,
+      "stackable": true
+    },
+    {
+      "code": "FREESHIP",
+      "type": "free_shipping",
+      "stackable": true
+    }
+  ]
+}
+
