@@ -38,16 +38,48 @@ It is not a rejection, but we would rather see it corrected than left inconsiste
 
 ## How to submit
 
-Opening the pull request is not the submission. Use the final-submission Google
-Form provided alongside this repository in your assignment invitation. Submit:
+Opening the pull request is not the submission. Send a `POST` request with a
+JSON body to:
 
-- your name and email address;
-- your GitHub username; and
-- the pull request URL from your own fork.
+`https://checkout-grader-production.up.railway.app/submissions`
+
+The JSON body must contain your enrolled email address and pull request URL:
+
+```json
+{
+  "email": "you@example.com",
+  "prUrl": "https://github.com/YOUR-USERNAME/YOUR-FORK/pull/1"
+}
+```
+
+Set the request's `Content-Type` header to `application/json`. You may use any
+HTTP client; a specific command is intentionally not prescribed.
+
+Use the same email address that received the assignment invitation. The grader
+verifies the pull request and records its GitHub owner automatically; do not send
+a separate GitHub username.
+
+A successful submission replies with `202` and a receipt:
+
+```json
+{ "id": 41, "received": "...", "message": "Submission received." }
+```
 
 Send the pull request URL, not the branch or repository URL. If you spot a
-mistake after submitting, push the fix and submit the form again. Your newest
-response replaces the previous submission.
+mistake after submitting, push the fix and send the same request again with the
+same email address and GitHub account. The newest accepted submission replaces
+the previous one.
+
+Common error responses are:
+
+- `400` — the request or pull request is invalid.
+- `403` — the email is not in the enrolled-candidate list.
+- `409` — that email was already submitted from another GitHub account.
+- `429` — too many submission attempts; wait and try again.
+- `503` — enrollment or GitHub validation is temporarily unavailable; retry later.
+
+A `202` response confirms receipt only. Grading results remain with the hiring
+team and are not available from a public status page.
 
 ## AI use
 
